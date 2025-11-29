@@ -1,0 +1,1837 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Marketing Digital - Bruzzone</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #f59e0b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --dark: #1f2937;
+            --light: #f3f4f6;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--light);
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 20px 16px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .header h1 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-stats {
+            display: flex;
+            gap: 16px;
+            margin-top: 12px;
+            font-size: 0.85rem;
+        }
+
+        .stat-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 6px 12px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Navigation Tabs */
+        .nav-tabs {
+            display: flex;
+            background: white;
+            padding: 8px;
+            gap: 6px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .nav-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-tab {
+            flex: 0 0 auto;
+            padding: 10px 16px;
+            border: none;
+            background: var(--light);
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--dark);
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .nav-tab.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 16px;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Ideas Section */
+        .idea-input-container {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .idea-input {
+            flex: 1;
+            padding: 14px;
+            border: 2px solid var(--light);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .idea-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-small {
+            padding: 8px 12px;
+            font-size: 0.85rem;
+        }
+
+        /* Idea Cards */
+        .idea-card {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 12px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .idea-card.programado {
+            border-left-color: var(--secondary);
+        }
+
+        .idea-card.grabado {
+            border-left-color: var(--success);
+        }
+
+        .idea-card.publicado {
+            border-left-color: #22c55e;
+            opacity: 0.7;
+        }
+
+        .idea-title {
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--dark);
+        }
+
+        .idea-description {
+            font-size: 0.9rem;
+            color: #6b7280;
+            margin-bottom: 10px;
+        }
+
+        .idea-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .tag {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .tag-category {
+            background: #ddd6fe;
+            color: #7c3aed;
+        }
+
+        .tag-priority-alta {
+            background: #fecaca;
+            color: #dc2626;
+        }
+
+        .tag-priority-media {
+            background: #fed7aa;
+            color: #ea580c;
+        }
+
+        .tag-priority-baja {
+            background: #d1fae5;
+            color: #059669;
+        }
+
+        .tag-status {
+            background: #e0e7ff;
+            color: #4f46e5;
+        }
+
+        .idea-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .idea-actions button {
+            flex: 1;
+            min-width: 80px;
+        }
+
+        /* Calendar Section */
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .calendar-nav {
+            display: flex;
+            gap: 8px;
+        }
+
+        .calendar-nav button {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            border: none;
+            background: var(--light);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            margin-bottom: 16px;
+        }
+
+        .calendar-day-name {
+            text-align: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #9ca3af;
+            padding: 8px 0;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            background: var(--light);
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .calendar-day:hover {
+            background: #e0e7ff;
+        }
+
+        .calendar-day.today {
+            background: var(--primary);
+            color: white;
+            font-weight: 700;
+        }
+
+        .calendar-day.has-content::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            width: 6px;
+            height: 6px;
+            background: var(--secondary);
+            border-radius: 50%;
+        }
+
+        .calendar-day.selected {
+            outline: 3px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        .calendar-day.other-month {
+            opacity: 0.3;
+        }
+
+        .day-content {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 12px;
+        }
+
+        /* Tasks Section */
+        .week-selector {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+        }
+
+        .week-day {
+            flex: 0 0 auto;
+            width: 50px;
+            padding: 10px 8px;
+            text-align: center;
+            background: white;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .week-day.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .week-day-name {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .week-day-number {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-top: 4px;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: white;
+            padding: 14px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+        }
+
+        .task-checkbox {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            border: 2px solid var(--primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .task-checkbox.completed {
+            background: var(--success);
+            border-color: var(--success);
+        }
+
+        .task-checkbox.completed::after {
+            content: '✓';
+            color: white;
+            font-weight: bold;
+        }
+
+        .task-content {
+            flex: 1;
+        }
+
+        .task-title {
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .task-title.completed {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+
+        .task-time {
+            font-size: 0.8rem;
+            color: #9ca3af;
+            margin-top: 4px;
+        }
+
+        .task-delete {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: #fee2e2;
+            border-radius: 8px;
+            color: var(--danger);
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        /* AI Section */
+        .ai-chat-container {
+            height: calc(100vh - 280px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ai-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            background: var(--light);
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+
+        .ai-message {
+            max-width: 85%;
+            padding: 12px 16px;
+            border-radius: 16px;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .ai-message.user {
+            background: var(--primary);
+            color: white;
+            margin-left: auto;
+            border-bottom-right-radius: 4px;
+        }
+
+        .ai-message.assistant {
+            background: white;
+            color: var(--dark);
+            border-bottom-left-radius: 4px;
+        }
+
+        .ai-input-container {
+            display: flex;
+            gap: 8px;
+        }
+
+        .ai-input {
+            flex: 1;
+            padding: 14px;
+            border: 2px solid var(--light);
+            border-radius: 12px;
+            font-size: 1rem;
+        }
+
+        .ai-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .ai-suggestions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .ai-suggestion {
+            padding: 8px 14px;
+            background: white;
+            border: 2px solid var(--light);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .ai-suggestion:hover {
+            border-color: var(--primary);
+            background: #f0f0ff;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 40px;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 500px;
+            padding: 24px;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: var(--light);
+            border-radius: 10px;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--light);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+
+        /* Filter Buttons */
+        .filter-container {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 14px;
+            border: 2px solid var(--light);
+            background: white;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-btn.active {
+            border-color: var(--primary);
+            background: #f0f0ff;
+            color: var(--primary);
+        }
+
+        /* Empty States */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #9ca3af;
+        }
+
+        .empty-state-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 8px 16px;
+            border: none;
+            background: none;
+            color: #9ca3af;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .bottom-nav-item.active {
+            color: var(--primary);
+        }
+
+        .bottom-nav-item span:first-child {
+            font-size: 1.4rem;
+        }
+
+        /* Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+            z-index: 99;
+            transition: transform 0.2s;
+        }
+
+        .fab:hover {
+            transform: scale(1.1);
+        }
+
+        /* Quick Ideas Chips */
+        .quick-idea-chips {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            margin-bottom: 16px;
+        }
+
+        .quick-chip {
+            flex: 0 0 auto;
+            padding: 8px 14px;
+            background: linear-gradient(135deg, #f0f0ff, #e0e7ff);
+            border: none;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quick-chip:hover {
+            transform: scale(1.05);
+        }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            .main-content {
+                max-width: 600px;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <h1>📱 Marketing Digital</h1>
+        <div class="header-stats">
+            <div class="stat-badge">
+                <span>💡</span>
+                <span id="ideasCount">0 ideas</span>
+            </div>
+            <div class="stat-badge">
+                <span>📅</span>
+                <span id="programadosCount">0 programados</span>
+            </div>
+            <div class="stat-badge">
+                <span>✅</span>
+                <span id="publicadosCount">0 publicados</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs">
+        <button class="nav-tab active" data-section="ideas">💡 Ideas</button>
+        <button class="nav-tab" data-section="calendario">📅 Calendario</button>
+        <button class="nav-tab" data-section="tareas">✅ Tareas</button>
+        <button class="nav-tab" data-section="ia">🤖 Asistente IA</button>
+        <button class="nav-tab" data-section="estadisticas">📊 Estadísticas</button>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Ideas Section -->
+        <section id="ideas" class="section active">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">💡 Banco de Ideas</h2>
+                </div>
+                
+                <div class="quick-idea-chips">
+                    <button class="quick-chip" onclick="quickIdea('tutorial')">📚 Tutorial</button>
+                    <button class="quick-chip" onclick="quickIdea('producto')">🔧 Producto</button>
+                    <button class="quick-chip" onclick="quickIdea('tips')">💡 Tips</button>
+                    <button class="quick-chip" onclick="quickIdea('detras')">🎬 Detrás de cámara</button>
+                    <button class="quick-chip" onclick="quickIdea('cliente')">👤 Historia cliente</button>
+                </div>
+
+                <div class="filter-container">
+                    <button class="filter-btn active" data-filter="todas">Todas</button>
+                    <button class="filter-btn" data-filter="idea">💭 Ideas</button>
+                    <button class="filter-btn" data-filter="programado">📅 Programados</button>
+                    <button class="filter-btn" data-filter="grabado">🎬 Grabados</button>
+                    <button class="filter-btn" data-filter="publicado">✅ Publicados</button>
+                </div>
+
+                <div id="ideasList">
+                    <!-- Ideas se cargan dinámicamente -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Calendario Section -->
+        <section id="calendario" class="section">
+            <div class="card">
+                <div class="calendar-header">
+                    <h2 class="card-title">📅 <span id="currentMonth">Noviembre 2024</span></h2>
+                    <div class="calendar-nav">
+                        <button onclick="changeMonth(-1)">‹</button>
+                        <button onclick="changeMonth(1)">›</button>
+                    </div>
+                </div>
+
+                <div class="calendar-grid">
+                    <div class="calendar-day-name">Dom</div>
+                    <div class="calendar-day-name">Lun</div>
+                    <div class="calendar-day-name">Mar</div>
+                    <div class="calendar-day-name">Mié</div>
+                    <div class="calendar-day-name">Jue</div>
+                    <div class="calendar-day-name">Vie</div>
+                    <div class="calendar-day-name">Sáb</div>
+                    <div id="calendarDays"></div>
+                </div>
+
+                <div id="dayContent" class="day-content" style="display: none;">
+                    <h3 id="selectedDateTitle" style="margin-bottom: 12px; font-weight: 600;"></h3>
+                    <div id="dayIdeas"></div>
+                    <button class="btn btn-primary" style="width: 100%; margin-top: 12px;" onclick="scheduleForDate()">
+                        + Programar contenido
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tareas Section -->
+        <section id="tareas" class="section">
+            <div class="week-selector" id="weekSelector">
+                <!-- Días de la semana se cargan dinámicamente -->
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">✅ Tareas del día</h2>
+                    <button class="btn btn-primary btn-small" onclick="openTaskModal()">+ Nueva</button>
+                </div>
+
+                <div id="tasksList">
+                    <!-- Tareas se cargan dinámicamente -->
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">📋 Tareas recurrentes semanales</h2>
+                </div>
+                <div id="recurringTasks">
+                    <!-- Tareas recurrentes -->
+                </div>
+            </div>
+        </section>
+
+        <!-- IA Section -->
+        <section id="ia" class="section">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">🤖 Asistente de Ideas</h2>
+                </div>
+
+                <div class="ai-suggestions">
+                    <button class="ai-suggestion" onclick="askAI('Dame 5 ideas de videos para mostrar productos de ferretería')">💡 Ideas de productos</button>
+                    <button class="ai-suggestion" onclick="askAI('Sugiere contenido viral para Instagram de ferretería')">🔥 Contenido viral</button>
+                    <button class="ai-suggestion" onclick="askAI('Ideas de tutoriales rápidos para reels')">📚 Tutoriales</button>
+                    <button class="ai-suggestion" onclick="askAI('Tendencias actuales en contenido de negocios')">📈 Tendencias</button>
+                </div>
+
+                <div class="ai-chat-container">
+                    <div class="ai-messages" id="aiMessages">
+                        <div class="ai-message assistant">
+                            ¡Hola Mauricio! 👋 Soy tu asistente de ideas para contenido. Puedo ayudarte con:
+                            <br><br>
+                            • Ideas de videos para productos
+                            <br>• Guiones y estructuras
+                            <br>• Tendencias de contenido
+                            <br>• Hashtags y descripciones
+                            <br>• Planificación de contenido
+                            <br><br>
+                            ¿En qué puedo ayudarte hoy?
+                        </div>
+                    </div>
+
+                    <div class="ai-input-container">
+                        <input type="text" class="ai-input" id="aiInput" placeholder="Escribe tu consulta..." onkeypress="handleAIKeypress(event)">
+                        <button class="btn btn-primary" onclick="sendAIMessage()">➤</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Estadísticas Section -->
+        <section id="estadisticas" class="section">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="statIdeas">0</div>
+                    <div class="stat-label">Ideas totales</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="statGrabados">0</div>
+                    <div class="stat-label">Videos grabados</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="statPublicados">0</div>
+                    <div class="stat-label">Publicados</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="statPendientes">0</div>
+                    <div class="stat-label">Pendientes</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">📊 Resumen semanal</h2>
+                </div>
+                <div id="weeklyStats">
+                    <!-- Estadísticas semanales -->
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">🏷️ Por categoría</h2>
+                </div>
+                <div id="categoryStats">
+                    <!-- Estadísticas por categoría -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Floating Action Button -->
+    <button class="fab" onclick="openIdeaModal()">+</button>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <button class="bottom-nav-item active" data-section="ideas">
+            <span>💡</span>
+            <span>Ideas</span>
+        </button>
+        <button class="bottom-nav-item" data-section="calendario">
+            <span>📅</span>
+            <span>Calendario</span>
+        </button>
+        <button class="bottom-nav-item" data-section="tareas">
+            <span>✅</span>
+            <span>Tareas</span>
+        </button>
+        <button class="bottom-nav-item" data-section="ia">
+            <span>🤖</span>
+            <span>IA</span>
+        </button>
+        <button class="bottom-nav-item" data-section="estadisticas">
+            <span>📊</span>
+            <span>Stats</span>
+        </button>
+    </nav>
+
+    <!-- Modal Nueva Idea -->
+    <div class="modal-overlay" id="ideaModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">💡 Nueva Idea</h3>
+                <button class="modal-close" onclick="closeModal('ideaModal')">×</button>
+            </div>
+            <form id="ideaForm" onsubmit="saveIdea(event)">
+                <div class="form-group">
+                    <label class="form-label">Título *</label>
+                    <input type="text" class="form-input" id="ideaTitle" required placeholder="Ej: Tutorial de uso de taladro">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Descripción</label>
+                    <textarea class="form-textarea" id="ideaDesc" placeholder="Describe la idea del video..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Categoría</label>
+                    <select class="form-select" id="ideaCategory">
+                        <option value="tutorial">📚 Tutorial</option>
+                        <option value="producto">🔧 Producto</option>
+                        <option value="tips">💡 Tips</option>
+                        <option value="detras">🎬 Detrás de cámara</option>
+                        <option value="cliente">👤 Historia cliente</option>
+                        <option value="tendencia">🔥 Tendencia</option>
+                        <option value="otro">📌 Otro</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Prioridad</label>
+                    <select class="form-select" id="ideaPriority">
+                        <option value="media">🟡 Media</option>
+                        <option value="alta">🔴 Alta</option>
+                        <option value="baja">🟢 Baja</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Fecha programada (opcional)</label>
+                    <input type="date" class="form-input" id="ideaDate">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Guardar Idea</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Nueva Tarea -->
+    <div class="modal-overlay" id="taskModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">✅ Nueva Tarea</h3>
+                <button class="modal-close" onclick="closeModal('taskModal')">×</button>
+            </div>
+            <form id="taskForm" onsubmit="saveTask(event)">
+                <div class="form-group">
+                    <label class="form-label">Tarea *</label>
+                    <input type="text" class="form-input" id="taskTitle" required placeholder="Ej: Grabar video de herramientas">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Fecha</label>
+                    <input type="date" class="form-input" id="taskDate">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Hora (opcional)</label>
+                    <input type="time" class="form-input" id="taskTime">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">
+                        <input type="checkbox" id="taskRecurring"> Tarea recurrente semanal
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Guardar Tarea</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Editar Idea -->
+    <div class="modal-overlay" id="editIdeaModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">✏️ Editar Idea</h3>
+                <button class="modal-close" onclick="closeModal('editIdeaModal')">×</button>
+            </div>
+            <form id="editIdeaForm" onsubmit="updateIdea(event)">
+                <input type="hidden" id="editIdeaId">
+                <div class="form-group">
+                    <label class="form-label">Título *</label>
+                    <input type="text" class="form-input" id="editIdeaTitle" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Descripción</label>
+                    <textarea class="form-textarea" id="editIdeaDesc"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Categoría</label>
+                    <select class="form-select" id="editIdeaCategory">
+                        <option value="tutorial">📚 Tutorial</option>
+                        <option value="producto">🔧 Producto</option>
+                        <option value="tips">💡 Tips</option>
+                        <option value="detras">🎬 Detrás de cámara</option>
+                        <option value="cliente">👤 Historia cliente</option>
+                        <option value="tendencia">🔥 Tendencia</option>
+                        <option value="otro">📌 Otro</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Estado</label>
+                    <select class="form-select" id="editIdeaStatus">
+                        <option value="idea">💭 Idea</option>
+                        <option value="programado">📅 Programado</option>
+                        <option value="grabado">🎬 Grabado</option>
+                        <option value="publicado">✅ Publicado</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Fecha programada</label>
+                    <input type="date" class="form-input" id="editIdeaDate">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Actualizar</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Estado de la aplicación
+        let state = {
+            ideas: [],
+            tasks: [],
+            currentMonth: new Date(),
+            selectedDate: null,
+            currentFilter: 'todas',
+            selectedWeekDay: new Date()
+        };
+
+        // Cargar datos al iniciar
+        document.addEventListener('DOMContentLoaded', () => {
+            loadData();
+            initNavigation();
+            renderIdeas();
+            renderCalendar();
+            renderWeekSelector();
+            renderTasks();
+            updateStats();
+            initRecurringTasks();
+        });
+
+        // Navegación
+        function initNavigation() {
+            // Tabs superiores
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.addEventListener('click', () => switchSection(tab.dataset.section));
+            });
+
+            // Navegación inferior
+            document.querySelectorAll('.bottom-nav-item').forEach(item => {
+                item.addEventListener('click', () => switchSection(item.dataset.section));
+            });
+
+            // Filtros
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => filterIdeas(btn.dataset.filter));
+            });
+        }
+
+        function switchSection(sectionId) {
+            // Ocultar todas las secciones
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.bottom-nav-item').forEach(n => n.classList.remove('active'));
+
+            // Mostrar sección seleccionada
+            document.getElementById(sectionId).classList.add('active');
+            document.querySelector(`.nav-tab[data-section="${sectionId}"]`).classList.add('active');
+            document.querySelector(`.bottom-nav-item[data-section="${sectionId}"]`).classList.add('active');
+        }
+
+        // Gestión de Ideas
+        function openIdeaModal() {
+            document.getElementById('ideaForm').reset();
+            document.getElementById('ideaModal').classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function saveIdea(event) {
+            event.preventDefault();
+            
+            const idea = {
+                id: Date.now(),
+                title: document.getElementById('ideaTitle').value,
+                description: document.getElementById('ideaDesc').value,
+                category: document.getElementById('ideaCategory').value,
+                priority: document.getElementById('ideaPriority').value,
+                date: document.getElementById('ideaDate').value || null,
+                status: document.getElementById('ideaDate').value ? 'programado' : 'idea',
+                createdAt: new Date().toISOString()
+            };
+
+            state.ideas.unshift(idea);
+            saveData();
+            renderIdeas();
+            updateStats();
+            closeModal('ideaModal');
+            
+            showToast('✅ Idea guardada');
+        }
+
+        function quickIdea(category) {
+            document.getElementById('ideaCategory').value = category;
+            openIdeaModal();
+        }
+
+        function filterIdeas(filter) {
+            state.currentFilter = filter;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.filter === filter);
+            });
+            renderIdeas();
+        }
+
+        function renderIdeas() {
+            const container = document.getElementById('ideasList');
+            let filteredIdeas = state.ideas;
+
+            if (state.currentFilter !== 'todas') {
+                filteredIdeas = state.ideas.filter(i => i.status === state.currentFilter);
+            }
+
+            if (filteredIdeas.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">💡</div>
+                        <p>No hay ideas aún</p>
+                        <p style="font-size: 0.9rem; margin-top: 8px;">Toca el botón + para agregar una</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filteredIdeas.map(idea => `
+                <div class="idea-card ${idea.status}">
+                    <div class="idea-title">${idea.title}</div>
+                    ${idea.description ? `<div class="idea-description">${idea.description}</div>` : ''}
+                    <div class="idea-meta">
+                        <span class="tag tag-category">${getCategoryLabel(idea.category)}</span>
+                        <span class="tag tag-priority-${idea.priority}">${getPriorityLabel(idea.priority)}</span>
+                        <span class="tag tag-status">${getStatusLabel(idea.status)}</span>
+                        ${idea.date ? `<span class="tag" style="background:#e0f2fe;color:#0369a1;">📅 ${formatDate(idea.date)}</span>` : ''}
+                    </div>
+                    <div class="idea-actions">
+                        ${idea.status === 'idea' ? `<button class="btn btn-secondary btn-small" onclick="changeStatus(${idea.id}, 'programado')">📅 Programar</button>` : ''}
+                        ${idea.status === 'programado' ? `<button class="btn btn-success btn-small" onclick="changeStatus(${idea.id}, 'grabado')">🎬 Grabado</button>` : ''}
+                        ${idea.status === 'grabado' ? `<button class="btn btn-success btn-small" onclick="changeStatus(${idea.id}, 'publicado')">✅ Publicado</button>` : ''}
+                        <button class="btn btn-small" style="background:#f3f4f6;" onclick="editIdea(${idea.id})">✏️</button>
+                        <button class="btn btn-danger btn-small" onclick="deleteIdea(${idea.id})">🗑️</button>
+                    </div>
+                </div>
+            `).join('');
+
+            updateHeaderStats();
+        }
+
+        function changeStatus(id, newStatus) {
+            const idea = state.ideas.find(i => i.id === id);
+            if (idea) {
+                idea.status = newStatus;
+                if (newStatus === 'programado' && !idea.date) {
+                    // Abrir modal para programar fecha
+                    editIdea(id);
+                    return;
+                }
+                saveData();
+                renderIdeas();
+                updateStats();
+                showToast(`Estado actualizado a: ${getStatusLabel(newStatus)}`);
+            }
+        }
+
+        function editIdea(id) {
+            const idea = state.ideas.find(i => i.id === id);
+            if (idea) {
+                document.getElementById('editIdeaId').value = id;
+                document.getElementById('editIdeaTitle').value = idea.title;
+                document.getElementById('editIdeaDesc').value = idea.description || '';
+                document.getElementById('editIdeaCategory').value = idea.category;
+                document.getElementById('editIdeaStatus').value = idea.status;
+                document.getElementById('editIdeaDate').value = idea.date || '';
+                document.getElementById('editIdeaModal').classList.add('active');
+            }
+        }
+
+        function updateIdea(event) {
+            event.preventDefault();
+            const id = parseInt(document.getElementById('editIdeaId').value);
+            const idea = state.ideas.find(i => i.id === id);
+            
+            if (idea) {
+                idea.title = document.getElementById('editIdeaTitle').value;
+                idea.description = document.getElementById('editIdeaDesc').value;
+                idea.category = document.getElementById('editIdeaCategory').value;
+                idea.status = document.getElementById('editIdeaStatus').value;
+                idea.date = document.getElementById('editIdeaDate').value || null;
+                
+                saveData();
+                renderIdeas();
+                renderCalendar();
+                updateStats();
+                closeModal('editIdeaModal');
+                showToast('✅ Idea actualizada');
+            }
+        }
+
+        function deleteIdea(id) {
+            if (confirm('¿Eliminar esta idea?')) {
+                state.ideas = state.ideas.filter(i => i.id !== id);
+                saveData();
+                renderIdeas();
+                updateStats();
+                showToast('Idea eliminada');
+            }
+        }
+
+        // Calendario
+        function renderCalendar() {
+            const container = document.getElementById('calendarDays');
+            const today = new Date();
+            const year = state.currentMonth.getFullYear();
+            const month = state.currentMonth.getMonth();
+            
+            // Actualizar título
+            const monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 
+                              'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+            document.getElementById('currentMonth').textContent = `${monthNames[month]} ${year}`;
+
+            // Primer día del mes
+            const firstDay = new Date(year, month, 1);
+            const startingDay = firstDay.getDay();
+            
+            // Último día del mes
+            const lastDay = new Date(year, month + 1, 0);
+            const totalDays = lastDay.getDate();
+
+            // Días del mes anterior
+            const prevMonthLastDay = new Date(year, month, 0).getDate();
+
+            let html = '';
+            
+            // Días del mes anterior
+            for (let i = startingDay - 1; i >= 0; i--) {
+                html += `<div class="calendar-day other-month">${prevMonthLastDay - i}</div>`;
+            }
+
+            // Días del mes actual
+            for (let day = 1; day <= totalDays; day++) {
+                const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                const isToday = today.getDate() === day && today.getMonth() === month && today.getFullYear() === year;
+                const hasContent = state.ideas.some(i => i.date === dateStr);
+                const isSelected = state.selectedDate === dateStr;
+
+                html += `<div class="calendar-day ${isToday ? 'today' : ''} ${hasContent ? 'has-content' : ''} ${isSelected ? 'selected' : ''}" 
+                             onclick="selectDate('${dateStr}')">${day}</div>`;
+            }
+
+            // Días del siguiente mes
+            const remainingDays = 42 - (startingDay + totalDays);
+            for (let day = 1; day <= remainingDays; day++) {
+                html += `<div class="calendar-day other-month">${day}</div>`;
+            }
+
+            container.innerHTML = html;
+        }
+
+        function changeMonth(delta) {
+            state.currentMonth.setMonth(state.currentMonth.getMonth() + delta);
+            renderCalendar();
+        }
+
+        function selectDate(dateStr) {
+            state.selectedDate = dateStr;
+            renderCalendar();
+            showDayContent(dateStr);
+        }
+
+        function showDayContent(dateStr) {
+            const container = document.getElementById('dayContent');
+            const titleEl = document.getElementById('selectedDateTitle');
+            const ideasEl = document.getElementById('dayIdeas');
+            
+            const date = new Date(dateStr + 'T12:00:00');
+            titleEl.textContent = date.toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long' });
+            
+            const dayIdeas = state.ideas.filter(i => i.date === dateStr);
+            
+            if (dayIdeas.length === 0) {
+                ideasEl.innerHTML = '<p style="color:#9ca3af;text-align:center;padding:20px;">Sin contenido programado</p>';
+            } else {
+                ideasEl.innerHTML = dayIdeas.map(idea => `
+                    <div class="idea-card ${idea.status}" style="margin-bottom:8px;">
+                        <div class="idea-title">${idea.title}</div>
+                        <span class="tag tag-status">${getStatusLabel(idea.status)}</span>
+                    </div>
+                `).join('');
+            }
+            
+            container.style.display = 'block';
+        }
+
+        function scheduleForDate() {
+            if (state.selectedDate) {
+                document.getElementById('ideaDate').value = state.selectedDate;
+                openIdeaModal();
+            }
+        }
+
+        // Tareas
+        function renderWeekSelector() {
+            const container = document.getElementById('weekSelector');
+            const today = new Date();
+            const dayNames = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+            
+            let html = '';
+            for (let i = -3; i <= 3; i++) {
+                const date = new Date(today);
+                date.setDate(today.getDate() + i);
+                const isActive = date.toDateString() === state.selectedWeekDay.toDateString();
+                
+                html += `
+                    <div class="week-day ${isActive ? 'active' : ''}" onclick="selectWeekDay(${i})">
+                        <div class="week-day-name">${dayNames[date.getDay()]}</div>
+                        <div class="week-day-number">${date.getDate()}</div>
+                    </div>
+                `;
+            }
+            container.innerHTML = html;
+        }
+
+        function selectWeekDay(offset) {
+            const today = new Date();
+            state.selectedWeekDay = new Date(today.setDate(today.getDate() + offset));
+            renderWeekSelector();
+            renderTasks();
+        }
+
+        function openTaskModal() {
+            document.getElementById('taskForm').reset();
+            document.getElementById('taskDate').value = state.selectedWeekDay.toISOString().split('T')[0];
+            document.getElementById('taskModal').classList.add('active');
+        }
+
+        function saveTask(event) {
+            event.preventDefault();
+            
+            const task = {
+                id: Date.now(),
+                title: document.getElementById('taskTitle').value,
+                date: document.getElementById('taskDate').value,
+                time: document.getElementById('taskTime').value || null,
+                recurring: document.getElementById('taskRecurring').checked,
+                completed: false,
+                createdAt: new Date().toISOString()
+            };
+
+            state.tasks.push(task);
+            saveData();
+            renderTasks();
+            closeModal('taskModal');
+            showToast('✅ Tarea creada');
+        }
+
+        function renderTasks() {
+            const container = document.getElementById('tasksList');
+            const dateStr = state.selectedWeekDay.toISOString().split('T')[0];
+            const dayTasks = state.tasks.filter(t => t.date === dateStr && !t.recurring);
+
+            if (dayTasks.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state" style="padding:20px;">
+                        <p style="color:#9ca3af;">Sin tareas para este día</p>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = dayTasks.map(task => `
+                    <div class="task-item">
+                        <div class="task-checkbox ${task.completed ? 'completed' : ''}" onclick="toggleTask(${task.id})"></div>
+                        <div class="task-content">
+                            <div class="task-title ${task.completed ? 'completed' : ''}">${task.title}</div>
+                            ${task.time ? `<div class="task-time">🕐 ${task.time}</div>` : ''}
+                        </div>
+                        <button class="task-delete" onclick="deleteTask(${task.id})">×</button>
+                    </div>
+                `).join('');
+            }
+
+            renderRecurringTasks();
+        }
+
+        function initRecurringTasks() {
+            // Tareas recurrentes por defecto para creación de contenido
+            const defaultRecurring = [
+                { id: 'r1', title: '📱 Revisar tendencias de Instagram', day: 1 },
+                { id: 'r2', title: '💡 Brainstorming de ideas semanales', day: 1 },
+                { id: 'r3', title: '🎬 Grabar contenido de la semana', day: 3 },
+                { id: 'r4', title: '✂️ Editar videos pendientes', day: 4 },
+                { id: 'r5', title: '📊 Revisar métricas de la semana', day: 5 },
+                { id: 'r6', title: '📅 Planificar contenido próxima semana', day: 5 }
+            ];
+            
+            if (!localStorage.getItem('marketing_recurring_tasks')) {
+                localStorage.setItem('marketing_recurring_tasks', JSON.stringify(defaultRecurring));
+            }
+        }
+
+        function renderRecurringTasks() {
+            const container = document.getElementById('recurringTasks');
+            const recurring = JSON.parse(localStorage.getItem('marketing_recurring_tasks') || '[]');
+            const dayOfWeek = state.selectedWeekDay.getDay();
+            const dayRecurring = recurring.filter(t => t.day === dayOfWeek);
+
+            if (dayRecurring.length === 0) {
+                container.innerHTML = '<p style="color:#9ca3af;text-align:center;padding:10px;">Sin tareas recurrentes para hoy</p>';
+            } else {
+                container.innerHTML = dayRecurring.map(task => `
+                    <div class="task-item" style="background:var(--light);">
+                        <div class="task-checkbox" onclick="completeRecurring('${task.id}')"></div>
+                        <div class="task-content">
+                            <div class="task-title">${task.title}</div>
+                            <div class="task-time">🔄 Semanal</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function toggleTask(id) {
+            const task = state.tasks.find(t => t.id === id);
+            if (task) {
+                task.completed = !task.completed;
+                saveData();
+                renderTasks();
+            }
+        }
+
+        function deleteTask(id) {
+            state.tasks = state.tasks.filter(t => t.id !== id);
+            saveData();
+            renderTasks();
+        }
+
+        // Asistente IA
+        function askAI(question) {
+            document.getElementById('aiInput').value = question;
+            sendAIMessage();
+        }
+
+        function handleAIKeypress(event) {
+            if (event.key === 'Enter') {
+                sendAIMessage();
+            }
+        }
+
+        function sendAIMessage() {
+            const input = document.getElementById('aiInput');
+            const message = input.value.trim();
+            if (!message) return;
+
+            const container = document.getElementById('aiMessages');
+            
+            // Agregar mensaje del usuario
+            container.innerHTML += `<div class="ai-message user">${message}</div>`;
+            input.value = '';
+
+            // Simular respuesta de IA
+            setTimeout(() => {
+                const response = generateAIResponse(message);
+                container.innerHTML += `<div class="ai-message assistant">${response}</div>`;
+                container.scrollTop = container.scrollHeight;
+            }, 800);
+
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function generateAIResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            // Respuestas basadas en contexto de ferretería/distribuidora
+            if (lowerMessage.includes('idea') || lowerMessage.includes('video')) {
+                return `¡Excelentes opciones para Bruzzone! 🔧
+
+<strong>5 Ideas de videos para esta semana:</strong>
+
+1. <strong>"El producto que más me piden"</strong> - Mostrá tu top seller y por qué funciona
+
+2. <strong>"Antes vs Después"</strong> - Transformación usando herramientas de tu catálogo
+
+3. <strong>"Error que todos cometen"</strong> - Tips para usar correctamente una herramienta
+
+4. <strong>"Tour por el depósito"</strong> - Contenido detrás de cámara que humaniza
+
+5. <strong>"Respondiendo preguntas"</strong> - FAQ de clientes en formato dinámico
+
+¿Querés que desarrolle alguna de estas ideas?`;
+            }
+
+            if (lowerMessage.includes('viral') || lowerMessage.includes('tendencia')) {
+                return `🔥 <strong>Tendencias actuales para negocios en Instagram:</strong>
+
+• <strong>POV videos</strong> - "POV: llegaste a comprar un tornillo y..."
+• <strong>Storytime</strong> - Anécdotas con clientes
+• <strong>Comparaciones</strong> - Producto barato vs calidad
+• <strong>Satisfying content</strong> - Organización de productos
+• <strong>Duetos/Reacciones</strong> - A videos de otros del rubro
+
+<strong>Hashtags que funcionan:</strong>
+#ferreteria #herramientas #construccion #bricolaje #diy #emprendedor
+
+El contenido auténtico y educativo está funcionando muy bien para negocios B2B 📈`;
+            }
+
+            if (lowerMessage.includes('tutorial') || lowerMessage.includes('reel')) {
+                return `📚 <strong>Estructura para tutoriales rápidos (15-30 seg):</strong>
+
+1. <strong>Hook (3 seg)</strong>: "¿Sabías que estás usando mal el X?"
+2. <strong>Problema (5 seg)</strong>: Mostrar el error común
+3. <strong>Solución (10 seg)</strong>: Demostración correcta
+4. <strong>CTA (2 seg)</strong>: "Guardalo para no olvidarte"
+
+<strong>Ideas de tutoriales:</strong>
+• Cómo elegir la mecha correcta
+• Diferencia entre tipos de pegamento
+• Uso correcto de cinta métrica
+• Cómo medir ángulos sin herramientas especiales
+
+¿Necesitás un guión específico para alguno?`;
+            }
+
+            if (lowerMessage.includes('guion') || lowerMessage.includes('script')) {
+                return `📝 <strong>Plantilla de guión para video:</strong>
+
+<strong>INTRO (Hook):</strong>
+"El 90% de la gente hace esto mal con [PRODUCTO]"
+
+<strong>DESARROLLO:</strong>
+- Mostrar el problema común
+- Explicar por qué está mal
+- Demostrar la forma correcta
+- Tip extra de valor
+
+<strong>CIERRE:</strong>
+"Si te sirvió, seguime para más tips de [TEMA]"
+
+<strong>TEXTO EN PANTALLA:</strong>
+• Usar subtítulos
+• Bullets con puntos clave
+• Flechas señalando detalles
+
+¿Querés que arme un guión específico para algún producto?`;
+            }
+
+            if (lowerMessage.includes('horario') || lowerMessage.includes('publicar')) {
+                return `⏰ <strong>Mejores horarios para publicar (Argentina):</strong>
+
+<strong>Lunes a Viernes:</strong>
+• 7:00 - 9:00 (gente yendo al trabajo)
+• 12:00 - 14:00 (almuerzo)
+• 19:00 - 21:00 (después del trabajo)
+
+<strong>Sábados:</strong>
+• 10:00 - 12:00 (mejor horario)
+• 17:00 - 19:00
+
+<strong>Domingos:</strong>
+• 10:00 - 12:00
+• 19:00 - 21:00
+
+Para tu rubro B2B, los martes y miércoles suelen funcionar mejor 📊`;
+            }
+
+            // Respuesta por defecto
+            return `Entendido. Para ayudarte mejor con "${message}", contame más:
+
+• ¿Es para mostrar un producto específico?
+• ¿Querés contenido educativo o entretenido?
+• ¿Tenés alguna tendencia que te gustaría seguir?
+
+También puedo ayudarte con:
+📝 Guiones y scripts
+📅 Planificación semanal
+#️⃣ Hashtags y descripciones
+💡 Ideas creativas
+
+¿Por dónde empezamos?`;
+        }
+
+        // Estadísticas
+        function updateStats() {
+            const ideas = state.ideas;
+            
+            document.getElementById('statIdeas').textContent = ideas.length;
+            document.getElementById('statGrabados').textContent = ideas.filter(i => i.status === 'grabado').length;
+            document.getElementById('statPublicados').textContent = ideas.filter(i => i.status === 'publicado').length;
+            document.getElementById('statPendientes').textContent = ideas.filter(i => ['idea', 'programado'].includes(i.status)).length;
+
+            // Estadísticas por categoría
+            const categories = {};
+            ideas.forEach(i => {
+                categories[i.category] = (categories[i.category] || 0) + 1;
+            });
+
+            const categoryContainer = document.getElementById('categoryStats');
+            categoryContainer.innerHTML = Object.entries(categories).map(([cat, count]) => `
+                <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--light);">
+                    <span>${getCategoryLabel(cat)}</span>
+                    <strong>${count}</strong>
+                </div>
+            `).join('') || '<p style="color:#9ca3af;text-align:center;">Sin datos aún</p>';
+
+            // Estadísticas semanales
+            const weekContainer = document.getElementById('weeklyStats');
+            const thisWeek = ideas.filter(i => {
+                if (!i.date) return false;
+                const ideaDate = new Date(i.date);
+                const today = new Date();
+                const weekStart = new Date(today.setDate(today.getDate() - today.getDay()));
+                return ideaDate >= weekStart;
+            });
+
+            weekContainer.innerHTML = `
+                <div style="display:flex;justify-content:space-around;text-align:center;padding:16px 0;">
+                    <div>
+                        <div style="font-size:1.5rem;font-weight:700;color:var(--primary);">${thisWeek.filter(i => i.status === 'publicado').length}</div>
+                        <div style="font-size:0.8rem;color:#6b7280;">Publicados</div>
+                    </div>
+                    <div>
+                        <div style="font-size:1.5rem;font-weight:700;color:var(--secondary);">${thisWeek.filter(i => i.status === 'programado').length}</div>
+                        <div style="font-size:0.8rem;color:#6b7280;">Programados</div>
+                    </div>
+                    <div>
+                        <div style="font-size:1.5rem;font-weight:700;color:var(--success);">${thisWeek.filter(i => i.status === 'grabado').length}</div>
+                        <div style="font-size:0.8rem;color:#6b7280;">Grabados</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateHeaderStats() {
+            document.getElementById('ideasCount').textContent = `${state.ideas.filter(i => i.status === 'idea').length} ideas`;
+            document.getElementById('programadosCount').textContent = `${state.ideas.filter(i => i.status === 'programado').length} programados`;
+            document.getElementById('publicadosCount').textContent = `${state.ideas.filter(i => i.status === 'publicado').length} publicados`;
+        }
+
+        // Helpers
+        function getCategoryLabel(cat) {
+            const labels = {
+                tutorial: '📚 Tutorial',
+                producto: '🔧 Producto',
+                tips: '💡 Tips',
+                detras: '🎬 Detrás de cámara',
+                cliente: '👤 Historia cliente',
+                tendencia: '🔥 Tendencia',
+                otro: '📌 Otro'
+            };
+            return labels[cat] || cat;
+        }
+
+        function getPriorityLabel(priority) {
+            const labels = { alta: '🔴 Alta', media: '🟡 Media', baja: '🟢 Baja' };
+            return labels[priority] || priority;
+        }
+
+        function getStatusLabel(status) {
+            const labels = { idea: '💭 Idea', programado: '📅 Programado', grabado: '🎬 Grabado', publicado: '✅ Publicado' };
+            return labels[status] || status;
+        }
+
+        function formatDate(dateStr) {
+            if (!dateStr) return '';
+            const date = new Date(dateStr + 'T12:00:00');
+            return date.toLocaleDateString('es-AR', { day: 'numeric', month: 'short' });
+        }
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 100px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: var(--dark);
+                color: white;
+                padding: 12px 24px;
+                border-radius: 10px;
+                z-index: 9999;
+                animation: slideUp 0.3s ease;
+            `;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2000);
+        }
+
+        // Persistencia
+        function saveData() {
+            localStorage.setItem('marketing_ideas', JSON.stringify(state.ideas));
+            localStorage.setItem('marketing_tasks', JSON.stringify(state.tasks));
+        }
+
+        function loadData() {
+            state.ideas = JSON.parse(localStorage.getItem('marketing_ideas') || '[]');
+            state.tasks = JSON.parse(localStorage.getItem('marketing_tasks') || '[]');
+        }
+    </script>
+</body>
+</html>
